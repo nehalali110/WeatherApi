@@ -1,20 +1,19 @@
 
 from json import JSONDecodeError
 from fastapi import Depends, FastAPI, Request
-from Exceptions.exception_handler import req_validation_error_handler
 from models.endpoint_models import weatherReqParams
 from visualCrossingApi.api_request import fetch_weather
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
+import redis
+from RedisCache.cache import set_cache, get_cache
+
+r = redis.Redis(host='localhost', port=6379, db=0)
 
 app = FastAPI()
 
 @app.get('/{location}')
 def get_weather_by_location(request: Request, params: weatherReqParams = Depends(weatherReqParams)):
-    # try:
-    #     return fetch_weather(request.url)
-    # except Exception as e:
-    #     return {"status": "error", "msg": e}
     return fetch_weather(request.url)
 
 
