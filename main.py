@@ -25,7 +25,7 @@ def get_weather_by_location_datetime1(request: Request, params: weatherReqParams
 
 @app.get('/{location}/{datetime1}/{datetime2}')
 def get_weather_by_location_datetime1_datetime2(request: Request, params: weatherReqParams = Depends(weatherReqParams)):
-    fetch_weather(request.url)
+    return fetch_weather(request.url)
 
 
 
