@@ -41,7 +41,8 @@ def request_validation_exception_handler(request: Request, exc: RequestValidatio
 def json_validation_exception_handler(request: Request, exc: JSONDecodeError):
     address = request.url.path.replace("/", "")
     return JSONResponse(
-            content={"status": "error", "msg": f"Invalid location '{address}'"}
+            content={"status": "error", "msg": f"Invalid location '{address}'"},
+            status_code=400
         )
 
 def main():
