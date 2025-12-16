@@ -5,6 +5,7 @@ import RedisCache.cache
 import json
 import requests
 import lz4.frame
+import urllib.parse
 
 # date_pattern = r"^\d{4}-(?:0?[1-9]|1[0-2])-(?:0?[1-9]|[1-2][0-9]|3[0-1])$"
 # temp = "1999-01-31"
@@ -18,7 +19,9 @@ path = "user/data"
 r = redis.Redis(host='localhost', port=6379, db=0)
 # print(RedisCache.cache.set_cache(r, path, user_data))
 result = RedisCache.cache.get_cache(r, "hello")
-temp_site = "https://www.google.com"
+temp_site = "https://www.google.com/path1/path2?search=&index=1" 
+parsed_url = urllib.parse.urlparse(temp_site)
+print(parsed_url.path + '?' + parsed_url.query)
 temp_req = requests.get(temp_site)
 # print(type(temp_req.json()))
 # print(result.decode())
@@ -785,5 +788,5 @@ temp_string = '''{
 }'''
 compressed_string = lz4.frame.compress(temp_string.encode())
 original_string = lz4.frame.decompress(compressed_string)
-print(len(temp_string.encode()))
-print(f"original_string: {original_string} Size: {len(original_string)}\nCompressed String: {compressed_string} Size: {len(compressed_string)}")
+# print(len(temp_string.encode()))
+# print(f"original_string: {original_string} Size: {len(original_string)}\nCompressed String: {compressed_string} Size: {len(compressed_string)}")
