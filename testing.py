@@ -11,12 +11,13 @@ import urllib.parse
 month = r"(?:0?[1-9]|1[0-2])"
 day = r"(?:0?[1-9]|[1-2][0-9]|3[0-1])"
 year=r"\d{4}"
-hour= r""
-time=r"T"
-date_pattern = rf"^{year}-{month}-{day}$"
-temp = "1999-01"
+hour= r"[0-1][1-9]|2[0-4]"
+min_sec = r"[0-5][0-9]"
+time=rf"T(?:{hour}):(?:{min_sec}):(?:{min_sec})"
+date_pattern = rf"^{year}-{month}-{day}(?:{time})?$"
+temp = "1999-01-10T12:00:05"
 match = re.search(date_pattern, temp)
-print(date_pattern)
+print(match)
 # pattern2=r"^\d+|(?:\d{4}-(?:0?[1-9]|1[0-2])-(?:0?[1-9]|[1-2][0-9]|3[0-1]))$"
 # temp2 = "222222"
 # match2 = re.fullmatch(pattern2, temp2)
